@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de rentabilidad de alquiler 2026 (gratis) · Valladolid, Segovia y Madrid</title>
+<meta name="description" content="Calcula gratis la rentabilidad bruta, neta y el cashflow mensual de un piso de alquiler en España: ITP por comunidad, hipoteca y gastos. Asesoramiento inmobiliario en Valladolid, Segovia y Madrid.">
+<link rel="canonical" href="https://valtarainmobiliaria.github.io/">
+<meta property="og:title" content="Calculadora de rentabilidad de alquiler gratis · Valtara Inmobiliaria">
+<meta property="og:description" content="Calcula en segundos la rentabilidad y el cashflow de un piso de alquiler.">
+<style>
+:root{--navy:#1F3A5F;--teal:#2A7F7F;--bg:#f5f7fa;--card:#fff;--ink:#1d2733;--muted:#5b6675;--line:#dfe6ee;--good:#1e7b45;--bad:#b42318;--warn:#b26b00;--gold:#F2B705}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+header{background:linear-gradient(150deg,var(--navy),#16304f 60%,var(--teal));color:#fff;padding:28px 16px 34px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.brand{font-weight:700;letter-spacing:.04em;opacity:.9;font-size:14px;text-transform:uppercase}
+h1{font-size:clamp(26px,4vw,40px);margin:12px 0 8px;line-height:1.15}
+header p{margin:0;color:#dbe7f3;max-width:640px}
+main{margin-top:-18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:14px;box-shadow:0 6px 24px rgba(20,40,70,.08);padding:20px}
+h2{font-size:19px;margin:0 0 12px;color:var(--navy)}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:16px;background:#fff;color:var(--ink)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--bg);border-radius:10px;padding:12px}
+.kpi b{display:block;font-size:24px}
+.kpi span{font-size:12px;color:var(--muted)}
+.big{grid-column:1/-1;text-align:center;padding:16px}
+.big b{font-size:34px}
+.verdict{margin-top:12px;padding:12px;border-radius:10px;font-weight:700;text-align:center}
+.v-bad{background:#fde8e7;color:var(--bad)}.v-warn{background:#fff3e0;color:var(--warn)}.v-ok{background:#e7f5ec;color:var(--good)}
+.cta{display:block;text-align:center;text-decoration:none;font-weight:700;border-radius:10px;padding:13px 16px;margin-top:12px}
+.cta-gold{background:var(--gold);color:var(--navy)}
+.cta-wa{background:#1f9d55;color:#fff;border:0;width:100%;font-size:16px;cursor:pointer}
+.lead{background:var(--navy);color:#fff}
+.lead h2{color:#fff}.lead label{color:#c9d6e6}.lead p{color:#dbe7f3}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#c9d6e6;margin-top:10px}
+.check input{width:auto;margin-top:3px}
+.lead a{color:#9fd6d6}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-weight:600}
+details{border-bottom:1px solid var(--line);padding:10px 0}summary{cursor:pointer;font-weight:600}
+footer{color:var(--muted);font-size:12px;padding:30px 16px;text-align:center}
+.small{font-size:12px;color:var(--muted)}
+.sec{margin-top:18px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">Valtara Inmobiliaria</div>
+  <h1>¿Es rentable este piso? Calculadora de alquiler gratis</h1>
+  <p>Introduce el precio y el alquiler: te decimos la rentabilidad real y cuánto te queda cada mes después de ITP, gastos e hipoteca.</p>
+</div></header>
+
+<main class="wrap">
+<div class="grid">
+  <section class="card" aria-labelledby="t-datos">
+    <h2 id="t-datos">Datos del piso</h2>
+    <div class="row">
+      <div><label for="precio">Precio de compra (€)</label><input id="precio" type="number" inputmode="numeric" value="150000" min="0" step="1000"></div>
+      <div><label for="ccaa">Comunidad autónoma</label><select id="ccaa"></select></div>
+    </div>
+    <div class="row">
+      <div><label for="renta">Alquiler mensual (€)</label><input id="renta" type="number" inputmode="numeric" value="800" min="0" step="10"></div>
+      <div><label for="reforma">Reforma y muebles (€)</label><input id="reforma" type="number" inputmode="numeric" value="5000" min="0" step="500"></div>
+    </div>
+    <div class="row">
+      <div><label for="gastos">Comunidad + IBI + seguros (€/año)</label><input id="gastos" type="number" inputmode="numeric" value="1200" min="0" step="50"></div>
+      <div><label for="meses">Meses alquilado al año</label><input id="meses" type="number" value="11" min="0" max="12" step="0.5"></div>
+    </div>
+    <div class="row">
+      <div><label for="fin">% financiado por el banco</label><input id="fin" type="number" value="70" min="0" max="100" step="5"></div>
+      <div><label for="tipo">Interés hipoteca (%)</label><input id="tipo" type="number" value="3" min="0" max="15" step="0.1"></div>
+    </div>
+    <label for="plazo">Plazo de la hipoteca (años)</label><input id="plazo" type="number" value="25" min="1" max="40" step="1">
+    <p class="small">Estimación orientativa antes de impuestos sobre la renta. No es asesoramiento financiero ni fiscal.</p>
+  </section>
+
+  <section class="card" aria-labelledby="t-res" aria-live="polite">
+    <h2 id="t-res">Resultado</h2>
+    <div class="kpis">
+      <div class="kpi big"><span>Cashflow mensual (antes de IRPF)</span><b id="k-cf">–</b></div>
+      <div class="kpi"><span>Rentabilidad bruta</span><b id="k-bruta">–</b></div>
+      <div class="kpi"><span>Rentabilidad neta</span><b id="k-neta">–</b></div>
+      <div class="kpi"><span>Inversión total</span><b id="k-inv">–</b></div>
+      <div class="kpi"><span>Ahorros necesarios</span><b id="k-cap">–</b></div>
+      <div class="kpi"><span>ITP a pagar</span><b id="k-itp">–</b></div>
+      <div class="kpi"><span>Cuota hipoteca</span><b id="k-cuota">–</b></div>
+    </div>
+    <div id="verdict" class="verdict">–</div>
+    <a class="cta cta-gold" href="https://jfadrique.gumroad.com/l/hbmcfa" target="_blank" rel="noopener">Análisis completo con IRPF y comparador de 3 pisos · Excel + guía →</a>
+  </section>
+</div>
+
+<section class="card lead sec" id="contacto" aria-labelledby="t-lead">
+  <h2 id="t-lead">¿Compras, vendes o quieres saber cuánto vale tu piso en Valladolid, Segovia y Madrid?</h2>
+  <p>Te llamamos sin compromiso. Valoración gratuita y ayuda para encontrar pisos que de verdad sean rentables.</p>
+  <form id="leadform" novalidate>
+    <div class="row">
+      <div><label for="l-nombre">Nombre</label><input id="l-nombre" autocomplete="name" required></div>
+      <div><label for="l-tel">Teléfono</label><input id="l-tel" type="tel" autocomplete="tel" required></div>
+    </div>
+    <div class="row">
+      <div><label for="l-tipo">Quiero</label>
+        <select id="l-tipo"><option>Vender mi piso</option><option>Saber cuánto vale mi piso</option><option>Comprar para invertir</option><option>Comprar para vivir</option></select></div>
+      <div><label for="l-zona">Zona o municipio</label><input id="l-zona" placeholder="p. ej., Valladolid capital"></div>
+    </div>
+    <label class="check"><input type="checkbox" id="l-ok" required> <span>Acepto que Valtara Inmobiliaria use mis datos para contactarme sobre mi consulta. Responsable: Valtara Inmobiliaria. Puedes ejercer tus derechos en javier@valtarainmobiliaria.com. <a href="https://www.valtarainmobiliaria.com/politica-de-privacidad/" target="_blank" rel="noopener">Política de privacidad</a>.</span></label>
+    <button class="cta cta-wa" type="submit">Enviar por WhatsApp</button>
+    <p class="small" style="color:#c9d6e6">O llámanos: <a href="tel:+34603620696">603 62 06 96</a> · <a href="mailto:javier@valtarainmobiliaria.com">javier@valtarainmobiliaria.com</a></p>
+    <p id="l-err" class="small" style="color:#ffb4ab" role="alert"></p>
+  </form>
+</section>
+
+<section class="card sec" aria-labelledby="t-itp">
+  <h2 id="t-itp">ITP de vivienda usada por comunidad (2026)</h2>
+  <table><thead><tr><th>Comunidad</th><th>Tipo general</th></tr></thead><tbody id="itp-table"></tbody></table>
+  <p class="small">Tipos generales orientativos; existen tipos reducidos y tramos para importes altos. Confírmalo en tu comunidad.</p>
+</section>
+
+<section class="card sec" aria-labelledby="t-faq">
+  <h2 id="t-faq">Preguntas frecuentes</h2>
+  <details><summary>¿Qué es una buena rentabilidad para un piso de alquiler?</summary><p>Como referencia, una rentabilidad neta por debajo del 4 % es baja, entre el 4 % y el 6 % es aceptable y por encima del 6 % es buena. Lo importante es que el cashflow mensual sea positivo incluso con algún mes vacío.</p></details>
+  <details><summary>¿Qué diferencia hay entre rentabilidad bruta y neta?</summary><p>La bruta divide el alquiler anual entre el precio. La neta descuenta gastos (comunidad, IBI, seguros, meses vacíos) y suma al precio los costes de compra y reforma. La neta es la que de verdad importa.</p></details>
+  <details><summary>¿Cuánto cuesta comprar un piso además del precio?</summary><p>En vivienda usada hay que sumar el ITP (del 4 % al 10 % según la comunidad), notaría, registro y gestoría. En total suele ser entre un 8 % y un 13 % más.</p></details>
+  <details><summary>¿Me ayudáis a encontrar un piso rentable o a vender el mío?</summary><p>Sí. Deja tu teléfono en el formulario y te llamamos para estudiar tu caso sin compromiso.</p></details>
+</section>
+</main>
+
+<footer>© 2026 Valtara Inmobiliaria · Valladolid, Segovia y Madrid · Calculadora orientativa, no constituye asesoramiento financiero ni fiscal.</footer>
+
+<script>
+const ITP=[["Andalucía",7],["Aragón",8],["Asturias",8],["Baleares",8],["Canarias",6.5],["Cantabria",9],["Castilla y León",8],["Castilla-La Mancha",9],["Cataluña",10],["Comunidad Valenciana",9],["Extremadura",8],["Galicia",8],["La Rioja",7],["Madrid",6],["Murcia",7.75],["Navarra",6],["País Vasco",4],["Ceuta",3],["Melilla",3]];
+const WHATSAPP="34603620696"; // solo dígitos con prefijo, p. ej. 34600000000
+const DEFAULT_CCAA="Castilla y León";
+const $=id=>document.getElementById(id);
+const sel=$("ccaa"), tb=$("itp-table");
+ITP.forEach(([n,t])=>{const o=document.createElement("option");o.value=t;o.textContent=n;if(n===DEFAULT_CCAA)o.selected=true;sel.appendChild(o);
+  const tr=document.createElement("tr");tr.innerHTML=`<td>${n}</td><td>${String(t).replace(".",",")} %</td>`;tb.appendChild(tr);});
+if(!ITP.some(([n])=>n===DEFAULT_CCAA)) sel.value="8";
+const eur=v=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(v);
+const pct=v=>(v*100).toLocaleString("es-ES",{maximumFractionDigits:1})+" %";
+const num=id=>Math.max(0,parseFloat($(id).value)||0);
+let last={};
+function calc(){
+  const precio=num("precio"),itpT=parseFloat(sel.value)/100,renta=num("renta"),ref=num("reforma"),gas=num("gastos"),meses=Math.min(12,num("meses"));
+  const fin=Math.min(100,num("fin"))/100,tipo=num("tipo")/100,plazo=Math.max(1,num("plazo"));
+  const itp=precio*itpT, otros=precio>0?1800:0, inv=precio+itp+otros+ref, prest=precio*fin, cap=inv-prest;
+  const i=tipo/12,n=plazo*12, cuota=prest<=0?0:(i===0?prest/n:prest*i/(1-Math.pow(1+i,-n)));
+  const ingresos=renta*meses, gop=gas+ingresos*0.09, noi=ingresos-gop;
+  const bruta=precio>0?renta*12/precio:0, neta=inv>0?noi/inv:0, cf=(noi-cuota*12)/12;
+  $("k-cf").textContent=eur(cf); $("k-cf").style.color=cf<0?"var(--bad)":"var(--good)";
+  $("k-bruta").textContent=pct(bruta); $("k-neta").textContent=pct(neta);
+  $("k-inv").textContent=eur(inv); $("k-cap").textContent=eur(cap); $("k-itp").textContent=eur(itp); $("k-cuota").textContent=eur(cuota)+"/mes";
+  const v=$("verdict");
+  if(precio===0||renta===0){v.className="verdict";v.textContent="Introduce precio y alquiler";}
+  else if(cf<0){v.className="verdict v-bad";v.textContent="Este piso te costaría dinero cada mes";}
+  else if(neta<0.04){v.className="verdict v-warn";v.textContent="Rentabilidad baja: negocia el precio";}
+  else if(neta<0.06){v.className="verdict v-ok";v.textContent="Rentabilidad aceptable";}
+  else{v.className="verdict v-ok";v.textContent="Buena rentabilidad";}
+  last={precio,renta,neta,cf,ccaa:sel.options[sel.selectedIndex].text};
+}
+document.querySelectorAll("input,select").forEach(e=>e.addEventListener("input",calc));
+calc();
+$("leadform").addEventListener("submit",e=>{
+  e.preventDefault();
+  const nombre=$("l-nombre").value.trim(),tel=$("l-tel").value.trim(),err=$("l-err");
+  if(!nombre||tel.replace(/\D/g,"").length<9){err.textContent="Escribe tu nombre y un teléfono válido.";return;}
+  if(!$("l-ok").checked){err.textContent="Necesitamos tu consentimiento para contactarte.";return;}
+  err.textContent="";
+  const msg=`Hola, soy ${nombre} (${tel}). Quiero: ${$("l-tipo").value}. Zona: ${$("l-zona").value||"-"}.`+
+    (last.precio?` He calculado un piso de ${eur(last.precio)} con alquiler de ${eur(last.renta)} (${last.ccaa}): rentabilidad neta ${pct(last.neta)}, cashflow ${eur(last.cf)}/mes.`:"");
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+});
+</script>
+</body>
+</html>
